@@ -1,5 +1,6 @@
 package io.oac.contest;
 
+import lombok.Getter;
 import lombok.Value;
 
 import java.util.ArrayList;
@@ -39,8 +40,8 @@ public class Day3 {
     }
 }
 
-@Value
 class Wire {
+    @Getter
     List<Point> path;
 
     public Wire(List<Move> moves) {
