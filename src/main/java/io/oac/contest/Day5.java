@@ -1,15 +1,15 @@
 package io.oac.contest;
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Day5 {
     public static void main(String[] args) {
-        IntComputer2 computer = new IntComputer2(getLines());
+        IntComputer3 computer = new IntComputer3(getLines(), () -> new Scanner(System.in).nextInt(), System.out::println);
 
         computer.run();
         //part 1
         System.out.println(computer.getAddress(0));
-
         //part 2
 
 
