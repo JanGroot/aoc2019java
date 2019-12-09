@@ -5,7 +5,6 @@ import java.util.Arrays;
 public class Day5 {
     public static void main(String[] args) {
         IntComputer computer = new IntComputer(getLines(), () -> 1L, System.out::println);
-
         computer.run();
 
         //part 2

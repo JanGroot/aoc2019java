@@ -8,6 +8,7 @@ import java.util.concurrent.ExecutionException;
 import static java.util.List.of;
 
 public class Day7 {
+
     public static void main(String[] args) {
         Util.Permute part1 = new Util.Permute();
         Util.Permute part2 = new Util.Permute();
@@ -16,18 +17,18 @@ public class Day7 {
 
 
         System.out.println(part1.getPerms().stream().map(
-                Day7::runSimulation).max(Long::compareTo).orElseThrow());
+                phases -> runSimulation(phases, "input7")).max(Long::compareTo).orElseThrow());
 
         System.out.println(part2.getPerms().stream().map(
-                Day7::runSimulation).max(Long::compareTo).orElseThrow());
+                phases -> runSimulation(phases, "input7")).max(Long::compareTo).orElseThrow());
     }
 
-    private static long runSimulation(Long[] phases) {
-        IntComputer a = new IntComputer(getLines());
-        IntComputer b = new IntComputer(getLines());
-        IntComputer c = new IntComputer(getLines());
-        IntComputer d = new IntComputer(getLines());
-        IntComputer e = new IntComputer(getLines());
+    static long runSimulation(Long[] phases, String file) {
+        IntComputer a = new IntComputer(getLines(file));
+        IntComputer b = new IntComputer(getLines(file));
+        IntComputer c = new IntComputer(getLines(file));
+        IntComputer d = new IntComputer(getLines(file));
+        IntComputer e = new IntComputer(getLines(file));
 
         var ea = e.append(a);
         var ab = a.append(b);
@@ -55,8 +56,8 @@ public class Day7 {
         }
     }
 
-    private static long[] getLines() {
-        return Arrays.stream(Util.getInput("input7").get(0).split(","))
+    private static long[] getLines(String file) {
+        return Arrays.stream(Util.getInput(file).get(0).split(","))
                 .mapToLong(Long::parseLong)
                 .toArray();
     }

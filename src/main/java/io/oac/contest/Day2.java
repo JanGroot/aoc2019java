@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Day2 {
 
     public static void main(String[] args) {
-        IntComputer computer = new IntComputer(getLines(), null, null);
+        IntComputer computer = new IntComputer(getMem("input2"), null, null);
         computer.setAddress(1, 12);
         computer.setAddress(2, 2);
         computer.run();
@@ -15,7 +15,7 @@ public class Day2 {
         //part 2
         for (int i = 1; i < 100; i++) {
             for (int j = 99; j > 0; j--) {
-                computer = new IntComputer(getLines(), null, null);
+                computer = new IntComputer(getMem("input2"), null, null);
                 computer.setAddress(1, i);
                 computer.setAddress(2, j);
                 computer.run();
@@ -28,8 +28,8 @@ public class Day2 {
 
     }
 
-    private static long[] getLines() {
-        return Arrays.stream(Util.getInput("input2").get(0).split(","))
+    private static long[] getMem(String file) {
+        return Arrays.stream(Util.getInput(file).get(0).split(","))
                 .mapToLong(Long::parseLong)
                 .toArray();
     }

@@ -136,9 +136,7 @@ public class IntComputer implements Runnable {
 
     public void run() {
         while (!getCurrentOpcode().equals("99")) {
-            final var currentOpcode = getCurrentOpcode();
-            var verb = getVerb();
-            switch (currentOpcode) {
+            switch (getCurrentOpcode()) {
                 case "01" -> doIncrement();
                 case "02" -> doMultiply();
                 case "03" -> getInput();
@@ -153,7 +151,7 @@ public class IntComputer implements Runnable {
     }
 
     public BlockingQueue<Long> append(IntComputer other) {
-        BlockingQueue<Long> pipe = new LinkedBlockingQueue();
+        BlockingQueue<Long> pipe = new LinkedBlockingQueue<>();
         output =  pipe::offer;
         other.input = pipe::take;
         return pipe;
