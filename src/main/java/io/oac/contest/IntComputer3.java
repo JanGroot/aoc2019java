@@ -6,12 +6,14 @@ import java.util.concurrent.Callable;
 import java.util.function.Consumer;
 
 public class IntComputer3 implements Runnable {
+    private final String id;
     private final int[] memory;
     private int instructionPointer = 0;
     private Callable<Integer> input;
     private Consumer<Integer> output;
 
-    public IntComputer3(int[] memory, Callable<Integer> input, Consumer<Integer> output) {
+    public IntComputer3(String id, int[] memory, Callable<Integer> input, Consumer<Integer> output) {
+        this.id = id;
         this.memory = memory;
         this.input = input;
         this.output = output;
@@ -73,9 +75,10 @@ public class IntComputer3 implements Runnable {
 
     private void getInput() {
         var pos = getAddress(instructionPointer + 1);
-        System.out.println("input:");
-        try {
-            setAddress(pos, input.call());
+        try{
+            System.out.println(id + " waiting");
+            var value = input.call();
+            setAddress(pos, value);
         } catch (Exception e) {
             //
         }
@@ -122,7 +125,7 @@ public class IntComputer3 implements Runnable {
     }
 
     public void run() {
-        while (getCurrentOpcode() != "99") {
+        while (!getCurrentOpcode().equals("99")) {
             switch (getCurrentOpcode()) {
                 case "01" -> doIncrement();
                 case "02" -> doMultiply();

@@ -40,11 +40,11 @@ public class Day7 {
         BlockingQueue<Integer> de = new LinkedBlockingQueue();
 
 
-        IntComputer3 a = new IntComputer3(getLines(), ea::take, ab::offer);
-        IntComputer3 b = new IntComputer3(getLines(), ab::take, bc::offer);
-        IntComputer3 c = new IntComputer3(getLines(), bc::take, cd::offer);
-        IntComputer3 d = new IntComputer3(getLines(), cd::take, de::offer);
-        IntComputer3 e = new IntComputer3(getLines(), de::take, ea::offer);
+        IntComputer3 a = new IntComputer3("a", getLines(), ea::take, ab::offer);
+        IntComputer3 b = new IntComputer3("b", getLines(), ab::take, bc::offer);
+        IntComputer3 c = new IntComputer3("c", getLines(), bc::take, cd::offer);
+        IntComputer3 d = new IntComputer3("d", getLines(), cd::take, de::offer);
+        IntComputer3 e = new IntComputer3("e", getLines(), de::take, ea::offer);
 
         ea.offer(phases[0]);
         ab.offer(phases[1]);

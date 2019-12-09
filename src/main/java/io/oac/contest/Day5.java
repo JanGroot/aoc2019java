@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Day5 {
     public static void main(String[] args) {
-        IntComputer3 computer = new IntComputer3(getLines(), () -> new Scanner(System.in).nextInt(), System.out::println);
+        IntComputer3 computer = new IntComputer3("a", getLines(), () -> new Scanner(System.in).nextInt(), System.out::println);
 
         computer.run();
         //part 1
