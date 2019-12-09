@@ -9,7 +9,10 @@ import static java.util.stream.Collectors.groupingBy;
 public class Day4 {
     public static void main(String[] args) {
         System.out.println(IntStream.rangeClosed(307237, 769058).filter(Day4::isValid).count());
-        System.out.println(IntStream.rangeClosed(307237, 769058).filter(Day4::isValid).filter(Day4::hasGroupOfTwo).count());
+        System.out.println(IntStream.rangeClosed(307237, 769058)
+                .filter(Day4::isValid)
+                .filter(Day4::hasGroupOfTwo)
+                .count());
     }
 
     static boolean isValid(Integer password) {

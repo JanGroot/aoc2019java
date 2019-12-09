@@ -1,4 +1,5 @@
 package io.oac.contest;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 

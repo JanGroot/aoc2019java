@@ -4,12 +4,9 @@ import java.util.Arrays;
 
 public class Day9 {
     public static void main(String[] args) {
-        IntComputer3 computer = new IntComputer3("",  getLines(), () -> {
-            System.out.println("here you go");
-            return 1L;
-        }, System.out::println);
+        IntComputer computer = new IntComputer(getLines(), () -> 1L, System.out::println);
         computer.run();
-        IntComputer3 computer2 = new IntComputer3("",  getLines(), () -> 2L, System.out::println);
+        IntComputer computer2 = new IntComputer(getLines(), () -> 2L, System.out::println);
         computer2.run();
     }
 
