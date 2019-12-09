@@ -1,4 +1,4 @@
-!()[https://github.com/JanGroot/aoc2019java/workflows/Java%20CI/badge.svg]
+![](https://github.com/JanGroot/aoc2019java/workflows/Java%20CI/badge.svg)
 
 # aoc2019java
 
