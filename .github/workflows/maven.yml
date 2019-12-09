@@ -1,9 +1,6 @@
 name: Java CI
 
-on:
-  push:
-    paths:
-    - '!**/**.md'
+on: [push]
 
 jobs:
   build:
