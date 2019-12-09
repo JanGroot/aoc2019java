@@ -2,6 +2,8 @@
 
 # aoc2019java
 
-my solution repo for aoc 2019
+Solution repo for aoc 2019
 
-Will probably use it for kata's later.
+Will probably use it for kata's later in some other languages.
+Current language is java.
+
