@@ -6,6 +6,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import static java.util.List.of;
+import static org.apache.commons.lang3.ArrayUtils.toPrimitive;
 
 public class Day7 {
 
@@ -15,20 +16,23 @@ public class Day7 {
         part1.permute(new ArrayList<>(of(1L, 2L, 3L, 4L, 0L)), 0);
         part2.permute(new ArrayList<>(of(5L, 6L, 7L, 8L, 9L)), 0);
 
+        final var input7 = Util.getInput("input7").get(0);
 
         System.out.println(part1.getPerms().stream().map(
-                phases -> runSimulation(phases, "input7")).max(Long::compareTo).orElseThrow());
+                phases -> {
+                    return runSimulation(toPrimitive(phases), input7);
+                }).max(Long::compareTo).orElseThrow());
 
         System.out.println(part2.getPerms().stream().map(
-                phases -> runSimulation(phases, "input7")).max(Long::compareTo).orElseThrow());
+                phases -> runSimulation(toPrimitive(phases), input7)).max(Long::compareTo).orElseThrow());
     }
 
-    static long runSimulation(Long[] phases, String file) {
-        IntComputer a = new IntComputer(getLines(file));
-        IntComputer b = new IntComputer(getLines(file));
-        IntComputer c = new IntComputer(getLines(file));
-        IntComputer d = new IntComputer(getLines(file));
-        IntComputer e = new IntComputer(getLines(file));
+    static long runSimulation(long[] phases, String file) {
+        IntComputer a = new IntComputer(getMemory(file));
+        IntComputer b = new IntComputer(getMemory(file));
+        IntComputer c = new IntComputer(getMemory(file));
+        IntComputer d = new IntComputer(getMemory(file));
+        IntComputer e = new IntComputer(getMemory(file));
 
         var ea = e.append(a);
         var ab = a.append(b);
@@ -56,8 +60,8 @@ public class Day7 {
         }
     }
 
-    private static long[] getLines(String file) {
-        return Arrays.stream(Util.getInput(file).get(0).split(","))
+    private static long[] getMemory(String input) {
+        return Arrays.stream(input.split(","))
                 .mapToLong(Long::parseLong)
                 .toArray();
     }

@@ -9,21 +9,12 @@ import static org.apache.commons.lang3.StringUtils.countMatches;
 public class Day8 {
     public static void main(String[] args) {
         String line = getLines().get(0);
-        List<String> layers = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            layers.add(line.substring(i * 150, ((i + 1) * 150)));
-        }
+        List<String> layers = getLayers(line, 6, 25);
 
         System.out.println(layers.size());
         layers.sort(Comparator.comparingInt(o -> countMatches(o, '0')));
         String s = layers.get(0);
         System.out.println(countMatches(s, '1') * countMatches(s, '2'));
-
-
-        layers = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            layers.add(line.substring(i * 150, ((i + 1) * 150)));
-        }
 
         StringBuilder picture = new StringBuilder();
         for (int i = 0; i < 150; i++) {
@@ -41,6 +32,20 @@ public class Day8 {
             System.out.println(picture.substring(i * 25, (i + 1) * 25));
         }
 
+    }
+
+    static List<String> getLayers(String line, int height, int width) {
+        List<String> layers = new ArrayList<>();
+        int size = width * height;
+        int count = line.length() / size;
+        for (int i = 0; i < count; i++) {
+            layers.add(line.substring(i * size, ((i + 1) * size)));
+        }
+        return layers;
+    }
+
+    static String getTopLayer(List<String> layers, int height, int width) {
+        return null;
     }
 
     private static List<String> getLines() {
