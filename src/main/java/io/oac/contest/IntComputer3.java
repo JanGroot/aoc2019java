@@ -1,5 +1,6 @@
 package io.oac.contest;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.concurrent.Callable;
@@ -9,6 +10,7 @@ public class IntComputer3 implements Runnable {
     private final String id;
     private final int[] memory;
     private int instructionPointer = 0;
+    private int base = 0;
     private Callable<Integer> input;
     private Consumer<Integer> output;
 
@@ -34,7 +36,8 @@ public class IntComputer3 implements Runnable {
         int noun = 0;
         switch (mode) {
             case '1' -> noun = getAddress(instructionPointer + 1);
-            case '0' -> noun = getAddress(getAddress(instructionPointer + 1));
+            case '2' -> noun = getAddress(base + (int) getAddress(instructionPointer + 1));
+            case '0' -> noun = getAddress((int) getAddress(instructionPointer + 1));
         }
         return noun;
     }
@@ -44,7 +47,8 @@ public class IntComputer3 implements Runnable {
         int noun = 0;
         switch (mode) {
             case '1' -> noun = getAddress(instructionPointer + 2);
-            case '0' -> noun = getAddress(getAddress(instructionPointer + 2));
+            case '2' -> noun = getAddress(base + (int) getAddress(instructionPointer + 2));
+            case '0' -> noun = getAddress((int) getAddress(instructionPointer + 2));
         }
         return noun;
     }
@@ -75,10 +79,9 @@ public class IntComputer3 implements Runnable {
 
     private void getInput() {
         var pos = getAddress(instructionPointer + 1);
-        try{
-            System.out.println(id + " waiting");
-            var value = input.call();
-            setAddress(pos, value);
+        System.out.println("input:");
+        try {
+            setAddress(pos, input.call());
         } catch (Exception e) {
             //
         }
@@ -86,11 +89,12 @@ public class IntComputer3 implements Runnable {
     }
 
     private void doOutput() {
-        var modes = getModes();
-        int value = 0;
-        switch (modes) {
-            case "00" -> value = getAddress(getAddress(instructionPointer + 1));
-            case "01" -> value = getAddress(instructionPointer + 1);
+        char mode = getModes().charAt(0);
+        long value = 0;
+        switch (mode) {
+            case '0' -> value = getAddress((int) getAddress(instructionPointer + 1));
+            case '1' -> value = getAddress(instructionPointer + 1);
+            case '2' -> value = getAddress(base + (int) getAddress(instructionPointer + 1));
         }
         output.accept(value);
         moveToNextOpcode(2);
@@ -135,8 +139,22 @@ public class IntComputer3 implements Runnable {
                 case "06" -> doJump(false);
                 case "07" -> doLessThan();
                 case "08" -> doEquals();
+                case "09" -> setBase();
             }
         }
+    }
+
+    private void setBase() {
+        char mode = getModes().charAt(0);
+        long value = 0;
+        switch (mode) {
+            case '0' -> value = getAddress((int) getAddress(instructionPointer + 1));
+            case '1' -> value = getAddress(instructionPointer + 1);
+            case '2' -> value = getAddress(base + (int) getAddress(instructionPointer + 1));
+        }
+        base = (int) value;
+        System.out.println("base " + base);
+        moveToNextOpcode(2);
     }
 }
 
