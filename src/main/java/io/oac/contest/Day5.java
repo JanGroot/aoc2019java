@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Day5 {
     public static void main(String[] args) {
-        IntComputer3 computer = new IntComputer3("a", getLines(), () -> new Scanner(System.in).nextInt(), System.out::println);
+        IntComputer3 computer = new IntComputer3("a", getLines(), () -> new Scanner(System.in).nextLong(), System.out::println);
 
         computer.run();
         //part 1
@@ -15,9 +15,9 @@ public class Day5 {
 
     }
 
-    private static int[] getLines() {
+    private static long[] getLines() {
         return Arrays.stream(Util.getInput("input5").get(0).split(","))
-                .mapToInt(Integer::parseInt)
+                .mapToLong(Long::parseLong)
                 .toArray();
     }
 }

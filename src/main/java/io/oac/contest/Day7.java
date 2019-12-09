@@ -14,30 +14,40 @@ import static java.util.List.of;
 
 public class Day7 {
     public static void main(String[] args) throws Exception {
-        Permute permutations = new Permute();
-        permutations.permute(new ArrayList<>(of(5, 6, 7, 8, 9)), 0);
+        Permute part1 = new Permute();
+        Permute part2 = new Permute();
+        part1.permute(new ArrayList<>(of(1L, 2L, 3L, 4L, 0L)), 0);
+        part2.permute(new ArrayList<>(of(5L, 6L, 7L, 8L, 9L)), 0);
 
 
-        System.out.println(permutations.getPerms().stream().map(
+        System.out.println(part1.getPerms().stream().map(
                 phases -> {
                     try {
                         return runSimulation(phases);
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    } catch (Exception e) {
+                        System.err.println(e.getMessage());
+                        return null;
                     }
-                    return null;
-                }).max(Integer::compareTo));
+                }).max(Long::compareTo));
+
+        System.out.println(part2.getPerms().stream().map(
+                phases -> {
+                    try {
+                        return runSimulation(phases);
+                    } catch (Exception e) {
+                        System.err.println(e.getMessage());
+                        return null;
+                    }
+                }).max(Long::compareTo));
     }
 
-    private static int runSimulation(Integer[] phases) throws ExecutionException, InterruptedException {
+    private static long runSimulation(Long[] phases) throws ExecutionException, InterruptedException {
 
-        BlockingQueue<Integer> ea = new LinkedBlockingQueue();
-        BlockingQueue<Integer> ab = new LinkedBlockingQueue();
-        BlockingQueue<Integer> bc = new LinkedBlockingQueue();
-        BlockingQueue<Integer> cd = new LinkedBlockingQueue();
-        BlockingQueue<Integer> de = new LinkedBlockingQueue();
+        BlockingQueue<Long> ea = new LinkedBlockingQueue();
+        BlockingQueue<Long> ab = new LinkedBlockingQueue();
+        BlockingQueue<Long> bc = new LinkedBlockingQueue();
+        BlockingQueue<Long> cd = new LinkedBlockingQueue();
+        BlockingQueue<Long> de = new LinkedBlockingQueue();
 
 
         IntComputer3 a = null;
@@ -60,7 +70,7 @@ public class Day7 {
         bc.offer(phases[2]);
         cd.offer(phases[3]);
         de.offer(phases[4]);
-        ea.offer(0);
+        ea.offer(0L);
         CompletableFuture.allOf(
                 CompletableFuture.runAsync(a),
                 CompletableFuture.runAsync(b),
@@ -72,24 +82,24 @@ public class Day7 {
 
     }
 
-    private static int[] getLines() {
+    private static long[] getLines() {
         return Arrays.stream(Util.getInput("input7").get(0).split(","))
-                .mapToInt(Integer::parseInt)
+                .mapToLong(Long::parseLong)
                 .toArray();
     }
 
     static class Permute {
         @Getter
-        public final List<Integer[]> perms = new ArrayList<>();
+        public final List<Long[]> perms = new ArrayList<>();
 
-        public void permute(java.util.List<Integer> arr, int k) {
+        public void permute(java.util.List<Long> arr, int k) {
             for (int i = k; i < arr.size(); i++) {
                 java.util.Collections.swap(arr, i, k);
                 permute(arr, k + 1);
                 java.util.Collections.swap(arr, k, i);
             }
             if (k == arr.size() - 1) {
-                perms.add(arr.toArray(new Integer[0]));
+                perms.add(arr.toArray(new Long[0]));
             }
         }
     }
