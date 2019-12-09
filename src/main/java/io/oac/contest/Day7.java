@@ -40,11 +40,20 @@ public class Day7 {
         BlockingQueue<Integer> de = new LinkedBlockingQueue();
 
 
-        IntComputer3 a = new IntComputer3("a", getLines(), ea::take, ab::offer);
-        IntComputer3 b = new IntComputer3("b", getLines(), ab::take, bc::offer);
-        IntComputer3 c = new IntComputer3("c", getLines(), bc::take, cd::offer);
-        IntComputer3 d = new IntComputer3("d", getLines(), cd::take, de::offer);
-        IntComputer3 e = new IntComputer3("e", getLines(), de::take, ea::offer);
+        IntComputer3 a = null;
+        IntComputer3 b = null;
+        IntComputer3 c = null;
+        IntComputer3 d = null;
+        IntComputer3 e = null;
+        try {
+            a = new IntComputer3("a", getLines(), ea::take, ab::offer);
+            b = new IntComputer3("b", getLines(), ab::take, bc::offer);
+            c = new IntComputer3("c", getLines(), bc::take, cd::offer);
+            d = new IntComputer3("d", getLines(), cd::take, de::offer);
+            e = new IntComputer3("e", getLines(), de::take, ea::offer);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
         ea.offer(phases[0]);
         ab.offer(phases[1]);
