@@ -5,17 +5,19 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.util.List;
+
 @Disabled
 public class Day10Test {
 
     @ParameterizedTest
     @CsvSource({
-            "111111, true",
-            "223450, false",
-            "123789, false"
+            "'.#..#\n.....\n#####\n....#\n...##', 8",
+            "'......#.#.\n#..#.#....\n..#######.\n.#.#.###..\n.#..#.....\n..#....#.#\n#..#....#.\n.##.#..###\n##...#..#.\n.#....####', 33",
+            "'#.#...#.#.\n.###....#.\n.#....#...\n##.#.#.#.#\n....#.#.#.\n.##..###.#\n..#...##..\n..##....##\n......#...\n.####.###.', 35"
     })
-    public void solvePart1(String input, boolean valid) {
-        Assertions.assertEquals(valid, Day10.part1(input));
+    public void solvePart1(String input, int best) {
+        Assertions.assertEquals(best, Day10.part1(List.of(input.split("\n"))));
     }
 
     @ParameterizedTest
