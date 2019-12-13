@@ -33,11 +33,11 @@ public class Day11 {
         final var maxy = panels.stream().mapToInt(Panel::getY).max().orElseThrow();
         System.out.println(minx + " " + maxx + " " + miny + " " + maxy);
         for (int y = maxy; y >= miny; y--) {
-            for(int x = minx; x<= maxx; x++) {
+            for (int x = minx; x <= maxx; x++) {
                 var tile = painter.getHull().get(new Panel(x, y));
                 if (null != tile && tile == 1) {
                     System.out.print("#");
-                } else{
+                } else {
                     System.out.print(" ");
                 }
             }
@@ -55,6 +55,7 @@ public class Day11 {
                 .toArray();
     }
 }
+
 @Data
 class Robot {
     Map<Panel, Integer> hull = new HashMap<>();
