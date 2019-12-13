@@ -152,7 +152,7 @@ public class IntComputer implements Runnable {
 
     public BlockingQueue<Long> append(IntComputer other) {
         BlockingQueue<Long> pipe = new LinkedBlockingQueue<>();
-        output =  pipe::offer;
+        output = pipe::offer;
         other.input = pipe::take;
         return pipe;
     }
